@@ -10,6 +10,7 @@ def test_find_tag_reader_success():
 
     assert is_tag_reader_connected(devices_names) is True
 
+
 def test_find_tag_reader_fail():
     """ Find the tag reader if it's connected """
     devices_names = ['Ralink Technology, Corp. RT5372 Wireless Adapter', 'Linux Foundation 2.0 root hub']

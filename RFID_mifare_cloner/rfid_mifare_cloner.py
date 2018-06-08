@@ -1,5 +1,6 @@
 import subprocess
 import re
+import logging
 
 # Add here others models
 TAG_READERS = [
@@ -19,6 +20,27 @@ def is_tag_reader_connected(devices_names):
     return any([reader in device for device in devices_names for reader in TAG_READERS])
 
 
+def create_dump_tag(name: str):
+    """ Create a file .dmp which contains data of cards"""
+    try:
+        subprocess.check_call(f"mfoc -P 500 -O {name}.dmp", shell=True, stderr=subprocess.STDOUT)
+        return True
+    except Exception as e:
+        logging.error(f'Couldn\'t create_dump_tag : \n{e}')
+        return False
+
+
+def write_new_tag(tag_to_copy: str , destination: str):
+    """ Writes the tag_to_co """
+    try:
+        subprocess.check_call(f"nfc-mfclassic W a {tag_to_copy}.dmp {destination}.dmp", shell=True,
+                                 stderr=subprocess.STDOUT)
+    except Exception as e:
+        logging.error(f'Could\'t write_new_tag  : \n {e}')
+        return False
+
 if __name__ == '__main__':
     #get_plugged_devices()
-    print(is_tag_reader_connected(get_plugged_devices()))
+    #print(is_tag_reader_connected(get_plugged_devices()))
+    #create_dump_tag('carte-chinoise')
+    #write_new_tag(tag_to_copy="carte-vierge", destination="carte-chinoise")
