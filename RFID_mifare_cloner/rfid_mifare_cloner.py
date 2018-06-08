@@ -23,13 +23,13 @@ def is_tag_reader_in_devices(devices_names):
 def is_tag_reader_connected():
     return is_tag_reader_in_devices(get_plugged_devices())
 
+
 def create_dump_tag(name: str):
     """ Create a file .dmp which contains data of cards"""
     try:
-        subprocess.check_call(f"mfoc -P 500 -O {name}.dmp", shell=True, stderr=subprocess.STDOUT)
+        subprocess.check_call(f"mfoc -P 500 -O {name}.dmp", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.DEVNULL)
         return True
     except Exception as e:
-        logging.error(f'Couldn\'t create_dump_tag : \n{e}')
         return False
 
 
@@ -38,13 +38,11 @@ def write_new_tag(tag_to_copy: str , destination: str):
     try:
         subprocess.check_call(f"nfc-mfclassic W a {tag_to_copy}.dmp {destination}.dmp", shell=True,
                                  stderr=subprocess.STDOUT)
+        return True   # Return true because it will return 0 and it will be considerd as False.
     except Exception as e:
         logging.error(f'Could\'t write_new_tag  : \n {e}')
         return False
 
 if __name__ == '__main__':
-    pass
-    #get_plugged_devices()
-    #print(is_tag_reader_connected(get_plugged_devices()))
-    #create_dump_tag('carte-chinoise')
-    #write_new_tag(tag_to_copy="carte-vierge", destination="carte-chinoise")
+    from cli import command_line
+    command_line()

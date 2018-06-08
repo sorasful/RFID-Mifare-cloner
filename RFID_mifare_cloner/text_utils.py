@@ -13,7 +13,7 @@ RESET = "\u001b[0m"
 
 def bright_color(color: str):
     """ Return the bright version of color, doens't work for RESET"""
-    return f'{color};1'
+    return color.replace('m', ';1m')
 
 def write_text_color(text: str, color:str):
     """Write the text in a color then reset the color."""
