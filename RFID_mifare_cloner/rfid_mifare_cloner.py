@@ -15,10 +15,13 @@ def get_plugged_devices():
     return devices_names
 
 
-def is_tag_reader_connected(devices_names):
+def is_tag_reader_in_devices(devices_names):
     """ Return True if the reader is plugged in. """
     return any([reader in device for device in devices_names for reader in TAG_READERS])
 
+
+def is_tag_reader_connected():
+    return is_tag_reader_in_devices(get_plugged_devices())
 
 def create_dump_tag(name: str):
     """ Create a file .dmp which contains data of cards"""
@@ -40,6 +43,7 @@ def write_new_tag(tag_to_copy: str , destination: str):
         return False
 
 if __name__ == '__main__':
+    pass
     #get_plugged_devices()
     #print(is_tag_reader_connected(get_plugged_devices()))
     #create_dump_tag('carte-chinoise')

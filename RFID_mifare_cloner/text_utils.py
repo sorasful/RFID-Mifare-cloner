@@ -18,13 +18,3 @@ def bright_color(color: str):
 def write_text_color(text: str, color:str):
     """Write the text in a color then reset the color."""
     return f'{color}{text}{RESET}'
-
-
-import sys, time
-
-
-def loading():
-    sys.stdout.write('ok')
-    sys.stdout.flush()
-
-loading()
