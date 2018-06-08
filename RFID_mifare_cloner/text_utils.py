@@ -1,4 +1,3 @@
-
 # COLORS
 BLACK = '\u001b[30m'
 RED = '\u001b[31m'
@@ -16,6 +15,8 @@ def bright_color(color: str):
     if color != "\u001b[0m":
         return color.replace('m', ';1m')
     return color
-def write_text_color(text: str, color:str):
+
+
+def write_text_color(text: str, color: str):
     """Write the text in a color then reset the color."""
     return f'{color}{text}{RESET}'

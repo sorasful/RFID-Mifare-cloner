@@ -1,6 +1,5 @@
 import os
 import sys
-import tty
 import time
 import text_utils as tu
 from rfid_mifare_cloner import is_tag_reader_connected, create_dump_tag, write_new_tag
@@ -71,7 +70,7 @@ def command_line():
     # clean files
     os.remove('to-copy.dmp')
     os.remove('destination.dmp')
-    
+
 
 if __name__ == '__main__':
     command_line()
