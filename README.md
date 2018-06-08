@@ -3,6 +3,9 @@
 The purpose of this software is to provide an friendly interface to clone a RFID tag to an other tag and to train me 
 writing a CLI with specific graphics.
 
+![Alt text](rfid_cloner.png?raw=true "Title")
+
+
 ## Requirements
 
 - linux based distribution (Ubuntu 17.10 in my case)
