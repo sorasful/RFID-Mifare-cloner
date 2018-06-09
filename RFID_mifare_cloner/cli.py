@@ -25,12 +25,12 @@ def first_screen():
         sys.stdout.write(tu.write_text_color('Please connect your tag reader', tu.bright_color(tu.RED)))
         sys.stdout.flush()
     while not is_tag_reader_connected():
-        time.sleep(0.2)
+        time.sleep(0.4)
     sys.stdout.write(u"\u001b[1000D") # move cursor to left to erase previous message
     sys.stdout.write(tu.write_text_color('Tag reader detected and connected ! ', tu.bright_color(tu.GREEN)))
     sys.stdout.write('\n'* 5)
     sys.stdout.flush()
-    time.sleep(1)
+    time.sleep(0.5)
 
 
 def dump_card_screen(tag_to_copy=True):
@@ -46,7 +46,7 @@ def dump_card_screen(tag_to_copy=True):
             valid_tag = True
         except TagNotFoundException:
             sys.stdout.write(u"\u001b[1000D")
-            sys.stdout.write(" " * 80)
+            sys.stdout.write(" " * 80)  # Clear the previous line which is longer that this one.
             sys.stdout.write(u"\u001b[1000D")
             sys.stdout.write(tu.write_text_color(initial_text, tu.bright_color(tu.RED)))
             sys.stdout.flush()
