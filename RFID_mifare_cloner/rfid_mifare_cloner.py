@@ -1,12 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 *-*
+
+# https://github.com/sorasful/RFID-Mifare-cloner
+
 import subprocess
 import logging
 from exceptions import NotClassifMifareTagException, TagNotFoundException
 import sys
 import shutil
+import os
 
 
 def check_dependencies_installled():
     assert sys.version >= "3"  # Should be python 3.6 at least
+
+    if os.geteuid() != 0:
+        print("Script must be run as root.")
+        sys.exit(1)
 
     if not shutil.which("nfc-list"):
         print(

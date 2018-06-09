@@ -39,10 +39,8 @@ Test it :
 
 
 ## RUN IT
-You may need to use sudo to interact with the tag reader. If it's the case :  
+You need to use sudo to interact with the tag reader :  
 `sudo python3 RFID_mifare_cloner/rfid_mifare_cloner.py`  
-
-if not, just remove the sudo !
 
 
 ## Run tests

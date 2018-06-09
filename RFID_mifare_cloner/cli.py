@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 *-*
+
 import os
 import sys
 import time
@@ -20,7 +23,7 @@ def welcome_screen():
  / _, _/ __/ _/ // /_/ /  / /  / / / __/ /_/ / /  /  __/  / /___/ / /_/ / / / /  __/ /    
 /_/ |_/_/   /___/_____/  /_/  /_/_/_/  \__,_/_/   \___/   \____/_/\____/_/ /_/\___/_/                                                                                 
     """
-    print(tu.write_text_color(ascii_art, tu.YELLOW))
+    print(tu.write_text_color(ascii_art, tu.bright_color(tu.YELLOW)))
     print(
         tu.write_text_color("#RaccoonProgrammer " + "\n" * 2, tu.bright_color(tu.BLUE))
     )
