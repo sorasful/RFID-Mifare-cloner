@@ -21,7 +21,7 @@ writing a CLI with specific graphics.
 - ` wget http://dl.bintray.com/nfc-tools/sources/libnfc-1.7.1.tar.bz2`  
 - ` tar xjf libnfc-1.7.1.tar.bz2 `
 - ` cd libnfc-1.7.1`
-- ` .configure`
+- ` ./configure`
 - ` make`
 - ` sudo make install`
 - ` ldconfig`
