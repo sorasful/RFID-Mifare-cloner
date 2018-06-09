@@ -3,6 +3,8 @@ import sys
 import time
 import text_utils as tu
 from rfid_mifare_cloner import is_tag_reader_connected, create_dump_tag, write_new_tag
+from exceptions import TagNotFoundException, NotClassifMifareTagException
+
 
 def welcome_screen():
     """ Only shown when the user starts the CLI"""
@@ -14,7 +16,7 @@ def welcome_screen():
 /_/ |_/_/   /___/_____/  /_/  /_/_/_/  \__,_/_/   \___/   \____/_/\____/_/ /_/\___/_/                                                                                 
     """
     print(tu.write_text_color(ascii_art, tu.YELLOW))
-    print(tu.write_text_color('#RaccoonProgrammer '+ '\n' * 2, tu.bright_color(tu.BLUE)))
+    print(tu.write_text_color('#RaccoonProgrammer ' + '\n' * 2, tu.bright_color(tu.BLUE)))
 
 
 def first_screen():
@@ -36,15 +38,39 @@ def dump_card_screen(tag_to_copy=True):
     initial_text = 'Put the tag you want to duplicate on the reader. ' if tag_to_copy else 'Put the destination tag to clone to. '
     sys.stdout.write(tu.write_text_color(initial_text, tu.bright_color(tu.RED)))
     sys.stdout.flush()
-    while not create_dump_tag('to-copy' if tag_to_copy else 'destination'):
-        time.sleep(0.2)
+
+    valid_tag = False
+    while not valid_tag:
+        try:
+            create_dump_tag('to-copy' if tag_to_copy else 'destination')  # should success or raise something.
+            valid_tag = True
+        except TagNotFoundException:
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(" " * 80)
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(tu.write_text_color(initial_text, tu.bright_color(tu.RED)))
+            sys.stdout.flush()
+            time.sleep(0.2)
+
+        except NotClassifMifareTagException:
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(tu.write_text_color('This tag is not a classic mifare tag, it won\'t work... Please try another',
+                                                 tu.bright_color(tu.RED)))
+            sys.stdout.flush()
+            time.sleep(0.2)
+
+        except KeyboardInterrupt:
+            sys.exit()
+
+        except:
+            pass  # Occasionnal errors when trying to access to the device too many times ...
 
     sys.stdout.write(u"\u001b[1000D")  # move cursor to left to erase previous message
     sys.stdout.write(tu.write_text_color('Card successfully copied ! ', tu.bright_color(tu.GREEN)))
     if tag_to_copy:
         sys.stdout.write(tu.write_text_color('Please, remove the tag from the reader within 10 seconds', tu.bright_color(tu.CYAN)))
     else:
-        sys.stdout.write(tu.write_text_color('Don\'t remove the tag, we are processing to the copy of the tag. This should\'nt be long ', tu.bright_color(tu.CYAN)))
+        sys.stdout.write(tu.write_text_color('Don\'t remove the tag, we are processing to the copy of the tag. This shouldn\'t be long ', tu.bright_color(tu.CYAN)))
     sys.stdout.write('\n' * 2)
     sys.stdout.flush()
     if tag_to_copy:

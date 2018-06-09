@@ -1,36 +1,26 @@
 import subprocess
 import re
 import logging
-
-# Add here others models
-TAG_READERS = [
-    'ACR122U'
-]
-
-
-def get_plugged_devices():
-    """ Return the usb devices connected using the `lsusb``command"""
-    output = subprocess.check_output('lsusb', shell=True)
-    devices_names = re.findall('ID \w{4}:\w{4} (.*)', output.decode('utf-8'))
-    return devices_names
-
-
-def is_tag_reader_in_devices(devices_names):
-    """ Return True if the reader is plugged in. """
-    return any([reader in device for device in devices_names for reader in TAG_READERS])
-
+from exceptions import NotClassifMifareTagException, TagNotFoundException
 
 def is_tag_reader_connected():
-    return is_tag_reader_in_devices(get_plugged_devices())
-
+    output =  subprocess.check_output('nfc-list', shell=True)
+    return not "No NFC device found" in output.decode('utf-8')
 
 def create_dump_tag(name: str):
     """ Create a file .dmp which contains data of cards"""
     try:
-        subprocess.check_call(f"mfoc -P 500 -O {name}.dmp", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.DEVNULL)
-        return True
+        output = subprocess.check_output(f"mfoc -P 500 -O {name}.dmp", shell=True, stderr=subprocess.STDOUT)
+        if "Found Mifare" in output.decode('utf-8'):
+            return True
     except Exception as e:
-        return False
+        output = e.output.decode('utf-8')
+        if 'only Mifare Classic' in output:
+            raise NotClassifMifareTagException()
+        elif 'No tag found.' in output:
+            raise TagNotFoundException()
+        else:
+            raise
 
 
 def write_new_tag(tag_to_copy: str , destination: str):
