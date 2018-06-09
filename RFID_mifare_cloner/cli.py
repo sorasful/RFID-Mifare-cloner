@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import text_utils as tu
-from rfid_mifare_cloner import is_tag_reader_connected, create_dump_tag, write_new_tag
+from rfid_mifare_cloner import is_tag_reader_connected, create_dump_tag, write_new_tag, check_dependencies_installled
 from exceptions import TagNotFoundException, NotClassifMifareTagException
 
 
@@ -87,6 +87,7 @@ def write_tag_screen():
 
 
 def command_line():
+    check_dependencies_installled()
     welcome_screen()
     first_screen()
     dump_card_screen(tag_to_copy=True)  # We first copy data we want to duplicate

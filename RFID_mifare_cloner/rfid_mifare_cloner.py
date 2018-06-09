@@ -1,7 +1,19 @@
 import subprocess
-import re
 import logging
 from exceptions import NotClassifMifareTagException, TagNotFoundException
+import sys
+import shutil
+
+def check_dependencies_installled():
+    assert sys.version >= '3' # Should be python 3.6 at least
+
+    if not shutil.which('nfc-list'):
+        print('nfc-list not found, make sure it\'s installed and in your PATH. See README.md')
+        sys.exit(1)
+    if not shutil.which('mfoc'):
+        print('nfc-list not found, make sure it\'s installed and in your PATH. See README.md')
+        sys.exit(1)
+
 
 def is_tag_reader_connected():
     output =  subprocess.check_output('nfc-list', shell=True)
