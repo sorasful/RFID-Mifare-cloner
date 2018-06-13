@@ -73,7 +73,7 @@ def dump_card_screen(tag_to_copy=True):
                 " " * 80
             )  # Clear the previous line which is longer that this one.
             sys.stdout.write(u"\u001b[1000D")
-            sys.stdout.write(tu.write_text_color(initial_text, tu.bright_color(tu.RED)))
+            sys.stdout.write(tu.write_text_color("No tag found :" + initial_text, tu.bright_color(tu.RED)))
             sys.stdout.flush()
             time.sleep(0.2)
 
