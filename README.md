@@ -17,7 +17,7 @@ writing a CLI with specific graphics.
 ## Missing dependencies ? 
 `sudo apt install autoconf`
 
-###  Install ACR122U (Ubuntu)
+###  Install libnfc (Ubuntu)
 - ` sudo apt-get install pcsc-tools pcscd libpcsclite-dev libpcsclite1 libusb-dev`  
 - ` wget http://dl.bintray.com/nfc-tools/sources/libnfc-1.7.1.tar.bz2`  
 - ` tar xjf libnfc-1.7.1.tar.bz2 `
