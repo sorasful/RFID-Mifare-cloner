@@ -7,49 +7,25 @@ writing a CLI with specific graphics.
 
 
 
-## Requirements
+## Run with docker
 
-- linux based distribution (Ubuntu 17.10 in my case)
-- mfoc / libnfc (see Missing dependencies section)
-- Usb tag reader (ACR122U in my case) 
-- Python3.6+
+1) Plug your RFID reader in your computer
 
-## Missing dependencies ? 
-`sudo apt install autoconf`
+2) Build the image :  
+`docker build -t rfid-cloner .`  
 
-###  Install libnfc (Ubuntu)
-- ` sudo apt-get install pcsc-tools pcscd libpcsclite-dev libpcsclite1 libusb-dev`  
-- ` wget http://dl.bintray.com/nfc-tools/sources/libnfc-1.7.1.tar.bz2`  
-- ` tar xjf libnfc-1.7.1.tar.bz2 `
-- ` cd libnfc-1.7.1`
-- ` ./configure`
-- ` make`
-- ` sudo make install`
-- ` ldconfig`
+3) Run the image with --privilegied on, because we need to access device's USB ports.  
+`docker run -it --privileged rfid-cloner `
 
-Test it : 
-` nfc-scan-device`
 
-### Install mfoc  
-- `git clone git@github.com:nfc-tools/mfoc.git`
-- `autoreconf -is`
-- `./configure`
-- `make && sudo make install`
+You're good to go ! 
+
+## Troubleshooting : (Device or resource busy) 
+
+This may happen if your kernel version (uname -a) is superior to 3.5 . So yoou need to do this **ON YOUR HOST** and not in your container.
 
 
 
-## RUN IT
-You need to use sudo to interact with the tag reader :  
-`sudo python3 RFID_mifare_cloner/rfid_mifare_cloner.py`  
-
-
-## Run tests
-
-Install dependencies (only pytest) :  
-`pip install -r requirements.txt`  
-
-Then just run : 
-`pytest`
 
 
 ## Additionnal ressources : 
