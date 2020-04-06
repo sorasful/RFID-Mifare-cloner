@@ -24,8 +24,24 @@ You're good to go !
 
 This may happen if your kernel version (uname -a) is superior to 3.5 . So yoou need to do this **ON YOUR HOST** and not in your container.
 
+`sudo nano /etc/modprobe.d/blacklist-libnfc.conf`  
 
+Copy this in the file and save: 
 
+```
+blacklist nfc
+blacklist pn533
+blacklist pn533_usb
+```
+
+Then run :  
+
+`sudo modprobe -r pn533_usb`  
+`sudo modprobe -r pn533`  
+
+It's possible that you may need to run this in **YOUR CONTAINER** : 
+
+`service pcscd restart`
 
 
 ## Additionnal ressources : 
