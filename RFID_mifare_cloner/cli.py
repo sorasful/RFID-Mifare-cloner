@@ -24,7 +24,7 @@ def welcome_screen():
     """
     print(tu.write_text_color(ascii_art, tu.bright_color(tu.YELLOW)))
     print(
-        tu.write_text_color("#RaccoonProgrammer " + "\n" * 2, tu.bright_color(tu.BLUE))
+        tu.write_text_color("#Sorasful " + "\n" * 2, tu.bright_color(tu.BLUE))
     )
 
 
