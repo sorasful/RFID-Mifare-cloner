@@ -8,7 +8,7 @@ RUN apt update && apt install -y autoconf pcsc-tools pcscd libpcsclite-dev libpc
 RUN apt-get install -y libpcsclite-dev libpcsclite1 pcsc-tools pcscd
 RUN apt-get install -y automake autoconf libtool libusb-dev
 
-RUN wget http://dl.bintray.com/nfc-tools/sources/libnfc-1.7.1.tar.bz2 
+RUN wget https://github.com/nfc-tools/libnfc/releases/download/libnfc-1.7.1/libnfc-1.7.1.tar.bz2
 
 RUN tar xjf libnfc-1.7.1.tar.bz2
 
